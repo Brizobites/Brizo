@@ -45,12 +45,18 @@
       form { flex-direction: column; }
     }
   </style>
+  <script>
+    function orderNow(saladName) {
+      document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('orderDetails').value = saladName + ' - Quantity: ';
+    }
+  </script>
 </head>
 <body>
   <header>
     <h1>BRIZO</h1>
     <p>🍒Fresh 🍇Fruit Salads 🥗 Sprouts 🌱 | Dry Fruits🌰 | Natural Juices🍹🥤</p>
-    <p><img src="https://via.placeholder.com/40" alt="Delivery" style="width:40px; border-radius: 10px;"> Free Delivery, Between 5 a.m. - 9 a.m. in safe, food-grade plastic boxes.</p>
+    <img src="images/Delivery.png" alt="Salad" style="width:40px; border-radius: 10px;">  Free Delivery , Between 5 a.m. - 9 a.m. in safe, food-grade plastic boxes..</p>
   </header>
   <nav>
     <a href="#menu">Menu</a>
@@ -63,16 +69,16 @@
     <section id="menu">
       <h2>Our Salad Menu</h2>
       <div class="menu-item">
-        <img src="https://via.placeholder.com/160" alt="GOLD">
+        <img src="images/Salad.png" alt="GOLD">
         <div>
           <h3>Gold</h3>
           <p>Five types of Fruits and sprouts.</p>
           <strong>₹1599</strong><br>
-          <button onclick="orderNow('Gold')">Order Now</button>
+          <button onclick="orderNow('GOLD')">Order Now</button>
         </div>
       </div>
       <div class="menu-item">
-        <img src="https://via.placeholder.com/160" alt="Platinum">
+        <img src="images/Salad.png" alt="Platinum">
         <div>
           <h3>Platinum</h3>
           <p>Five types of Fruits & sprouts & DryFruits.</p>
@@ -81,57 +87,59 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="https://via.placeholder.com/160" alt="Diamond">
+        <img src="images/Salad.png" alt="Daimond">
         <div>
-          <h3>Diamond</h3>
+          <h3>Daimond</h3>
           <p>Seasonal fruits, & sprouts & DryFruits & Natural Juices.</p>
           <strong>₹2999</strong><br>
-          <button onclick="orderNow('Diamond')">Order Now</button>
+          <button onclick="orderNow('Daimond')">Order Now</button>
         </div>
       </div>
     </section>
+
 
     <section id="Fruit-Form">
       <h2>Fruit-Form</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;">
         <div style="text-align: center;">
-          <img src="https://via.placeholder.com/150" alt="Salad" style="width:150px; border-radius: 10px;">
+          <img src="images/Salad.png" alt="Salad" style="width:150px; border-radius: 10px;">
           <p>Salad</p>
         </div>
         <div style="text-align: center;">
-          <img src="https://via.placeholder.com/150" alt="Strawberry" style="width:150px; border-radius: 10px;">
+          <img src="images/Ste.png" alt="Strawberry" style="width:150px; border-radius: 10px;">
           <p>Strawberry</p>
         </div>
         <div style="text-align: center;">
-          <img src="https://via.placeholder.com/150" alt="Apple" style="width:150px; border-radius: 10px;">
+          <img src="images/apple.png" alt="apple" style="width:150px; border-radius: 10px;">
           <p>Apple</p>
         </div>
         <div style="text-align: center;">
-          <img src="https://via.placeholder.com/200" alt="Kiwi" style="width:200px; border-radius: 10px;">
-          <p>Kiwi</p>
+          <img src="images/kiwi.jpg" alt="kiwi" style="width:200px; border-radius: 10px;">
+          <p>kiwi</p>
         </div>
       </div>
-    </section>
+    </section>    
 
     <section id="order">
       <h2>Place Your Order</h2>
-      <form id="order-section" action="https://formspree.io/f/your-form-id" method="POST">
+      <form id="order-section">
         <div class="form-left">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="text" name="whatsapp" placeholder="WhatsApp Number" required>
-          <select name="location" required style="width: 70%; padding: 6px; margin-bottom: 6px; border: 1px solid #33ff00; border-radius: 7px; font-size: 1rem;">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <input type="text" placeholder="WhatsApp Number" required>
+          <select required style="width: 70%; padding: 6px; margin-bottom: 6px; border: 1px solid #33ff00; border-radius: 7px; font-size: 1rem;">
             <option value="">Select Nearby Location (Around 10km)</option>
             <option value="KPHB">Hitech City</option>
             <option value="Hitech City">KPHB</option>
             <option value="Lingampally">Lingampally</option>
-          </select>
-          <textarea class="address-box" name="address" placeholder="Address (4 lines)" rows="4" required></textarea>
+          </select>          
+          <textarea class="address-box" placeholder="Address (4 lines)" rows="4" required></textarea>
           <label for="startDate" style="font-weight: bold;">Start Date:</label>
           <input type="date" id="startDate" name="startDate" required style="width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 7px; font-size: 1rem;">
-          <input type="text" name="landmark" placeholder="Landmark" required>
-          <textarea id="orderDetails" name="orderDetails" placeholder="Provide details if you have any Fruit allergies or preferences" rows="4" required style="border: 2px solid orange; background-color: #fffaf0;"></textarea>
+          <input type="text" placeholder="Landmark" required>
+          <textarea Text="orderDetails" placeholder="Provide details if you have any Fruit allergies or preferences" rows="4" required style="border: 2px solid orange; background-color: #fffaf0;"></textarea>
         </div>
+        <div style="height: 200px; width: px; background-color: #4CAF50; margin: auto;"></div>
         <div class="form-right">
           <h3>Confirm Your Location:</h3>
           <button type="button" onclick="getUserLocation()" style="margin-bottom: 10px; padding: 10px 20px; background-color: orange; color: white; border: none; border-radius: 7px; cursor: pointer;">📍 Pin My Current Location</button>
@@ -141,88 +149,91 @@
       </form>
     </section>
 
-    <section id="contact">
-      <div style="background-color: rgb(49, 1, 1); padding: 20px; display: flex; justify-content: center; border-radius: 40px; margin: 10px auto; width: fit-content;">
-        <img src="https://via.placeholder.com/810x200" alt="Brizo Branches" style="width:810px; cursor: pointer; border-radius: 10px; transition: transform 0.3s ease;">
-      </div>
-      <hr style="border: none; border-top: 2px solidλοι #4CAF50; width: 80%; margin: 30px auto;">
+    <script>
+      function orderNow(saladName) {
+        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('orderDetails').value = saladName + ' - Quantity: ';
+      }
+
+      function getUserLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      function showPosition(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+          .then(response => response.json())
+          .then(data => {
+            const address = data.display_name;
+            document.querySelector('.address-box').value = `Pinned Location:\n${address}`;
+          })
+          .catch(err => {
+            document.querySelector('.address-box').value = `Pinned Location:\nLatitude: ${lat}, Longitude: ${lon}`;
+          });
+      }
+
+      function showError(error) {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+          case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+        }
+      }
+    </script>
+  </body>
+  </html>
+
+  <section id="contact">
+        <div style="background-color: rgb(49, 1, 1); padding: 20px; display: flex; justify-content: center; border-radius: 40px; margin: 10px auto; width: fit-content;">
+          <img src="images/Brizo_Branches.png" alt="Brizo Branches" 
+            style="width:810px; cursor: pointer; border-radius: 10px; transition: transform 0.3s ease;">
+        </div>
+        <hr style="border: none; border-top: 2px solid #4CAF50; width: 80%; margin: 30px auto;">
+
       <div style="display: flex; gap: 40px; align-items: center; justify-content: center; margin: 20px 0;">
         <div style="text-align: center;">
           <a href="mailto:brizobites@gmail.com">
-            <img src="https://via.placeholder.com/60" alt="Email" style="width:60px; cursor: pointer;">
+            <img src="images/mail.png" alt="Email" style="width:60px; cursor: pointer;">
           </a>
           <p style="margin-top: 8px; font-weight: bold;">Mail</p>
         </div>
         <div style="text-align: center;">
-          <a href="javascript:void(0);" onclick="alert('Call us at: +91 8977054582');">
-            <img src="https://via.placeholder.com/60" alt="Phone" style="width:60px; cursor: pointer;">
+          <a href="javascript:void(0);" onclick="openCallModal();">
+            <img src="images/phone.png" alt="Phone" style="width:60px; cursor: pointer;">
           </a>
           <p style="margin-top: 8px; font-weight: bold;">Phone</p>
         </div>
         <div style="text-align: center;">
           <a href="https://wa.me/918977054582?text=Hi" target="_blank">
-            <img src="https://via.placeholder.com/60" alt="WhatsApp" style="width:60px; cursor: pointer;">
+            <img src="images/whatsapp.png" alt="WhatsApp" style="width:60px; cursor: pointer;">
           </a>
           <p style="margin-top: 8px; font-weight: bold;">WhatsApp</p>
         </div>
         <div style="text-align: center;">
           <a href="https://www.google.com/maps/place/Hyderabad,+Telangana" target="_blank">
-            <img src="https://via.placeholder.com/50" alt="Location" style="width:50px; cursor: pointer;">
+            <img src="images/brizo_location.png" alt="Location" style="width:50px; cursor: pointer;">
           </a>
           <p style="margin-top: 8px; font-weight: bold;">Location</p>
         </div>
-      </div>
-    </section>
-  </div>
-
-  <footer>
-    <p>© 2025 BR!ZO. Eat healthy, stay happy!</p>
-  </footer>
-
-  <script>
-    function orderNow(saladName) {
-      document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
-      document.getElementById('orderDetails').value = saladName + ' - Quantity: ';
-    }
-
-    function getUserLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-
-    function showPosition(position) {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-        .then(response => response.json())
-        .then(data => {
-          const address = data.display_name;
-          document.querySelector('.address-box').value = `Pinned Location:\n${address}`;
-        })
-        .catch(err => {
-          document.querySelector('.address-box').value = `Pinned Location:\nLatitude: ${lat}, Longitude: ${lon}`;
-        });
-    }
-
-    function showError(error) {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          alert("User denied the request for Geolocation.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          alert("Location information is unavailable.");
-          break;
-        case error.TIMEOUT:
-          alert("The request to get user location timed out.");
-          break;
-        case error.UNKNOWN_ERROR:
-          alert("An unknown error occurred.");
-          break;
-      }
-    }
-  </script>
-</body>
-</html>
+      </div>    
+    </div>
+    <footer>
+      <p>&copy; 2025 BR!ZO. Eat healthy, stay happy!</p>
+    </footer>
+  </body>
+  </html>
