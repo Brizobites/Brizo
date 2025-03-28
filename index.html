@@ -26,14 +26,7 @@
     .menu-item strong { font-size: 1.4rem; color: #333; }
     .menu-item button { background-color: #4CAF50; color: white; padding: 10px 18px; border: none; border-radius: 7px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s ease; margin-top: 10px; }
     .menu-item button:hover { background-color: #388e3c; }
-    form { background-color: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px; }
-    form .form-left { flex: 1; min-width: 300px; }
-    form .form-right { flex: 1; min-width: 300px; }
-    form input, form textarea { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 7px; font-size: 1rem; }
-    form textarea.address-box { height: 100px; resize: vertical; }
-    form button { background-color: #4CAF50; color: white; padding: 12px 25px; border: none; border-radius: 7px; cursor: pointer; font-size: 1.1rem; transition: background-color 0.3s ease; width: 100%; }
-    form button:hover { background-color: #388e3c; }
-    iframe { width: 100%; height: 350px; border: none; border-radius: 15px; }
+    iframe.google-form { width: 100%; height: 800px; border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     footer { background-color: #4CAF50; color: white; text-align: center; padding: 15px 0; font-size: 1rem; }
     @media screen and (max-width: 768px) {
       header h1 { font-size: 2.4rem; }
@@ -42,13 +35,54 @@
       .menu-item { flex-direction: column; align-items: flex-start; text-align: left; }
       .menu-item img { width: 100%; margin: 0 0 15px 0; }
       .menu-item div { width: 100%; }
-      form { flex-direction: column; }
+      iframe.google-form { height: 1000px; }
     }
   </style>
   <script>
     function orderNow(saladName) {
       document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
-      document.getElementById('orderDetails').value = saladName + ' - Quantity: ';
+      // Note: Prefilling Google Forms via iframe is limited. You may need to instruct users to enter the salad name manually.
+      alert(`Please select "${saladName}" in the order form below.`);
+    }
+
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+        .then(response => response.json())
+        .then(data => {
+          const address = data.display_name;
+          alert(`Pinned Location: ${address}\nPlease enter this in the form below.`);
+        })
+        .catch(err => {
+          alert(`Pinned Location: Latitude: ${lat}, Longitude: ${lon}\nPlease enter this in the form below.`);
+        });
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("User denied the request for Geolocation.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Location information is unavailable.");
+          break;
+        case error.TIMEOUT:
+          alert("The request to get user location timed out.");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("An unknown error occurred.");
+          break;
+      }
     }
   </script>
 </head>
@@ -56,7 +90,7 @@
   <header>
     <h1>BRIZO</h1>
     <p>🍒Fresh 🍇Fruit Salads 🥗 Sprouts 🌱 | Dry Fruits🌰 | Natural Juices🍹🥤</p>
-    <img src="images/Delivery.png" alt="Salad" style="width:40px; border-radius: 10px;">  Free Delivery , Between 5 a.m. - 9 a.m. in safe, food-grade plastic boxes..</p>
+    <img src="images/Delivery.png" alt="Salad" style="width:40px; border-radius: 10px;"> Free Delivery, Between 5 a.m. - 9 a.m. in safe, food-grade plastic boxes.</p>
   </header>
   <nav>
     <a href="#menu">Menu</a>
@@ -97,7 +131,6 @@
       </div>
     </section>
 
-
     <section id="Fruit-Form">
       <h2>Fruit-Form</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;">
@@ -114,97 +147,23 @@
           <p>Apple</p>
         </div>
         <div style="text-align: center;">
-          <img src="images/Kiwi.jpg" alt="kiwi" style="width:200px; border-radius: 10px;">
+          <img src="images/kiwi.jpg" alt="kiwi" style="width:200px; border-radius: 10px;">
           <p>kiwi</p>
         </div>
       </div>
-    </section>    
+    </section>
 
     <section id="order">
       <h2>Place Your Order</h2>
-      <form id="order-section">
-        <div class="form-left">
-          <input type="text" placeholder="Your Name" required>
-          <input type="email" placeholder="Your Email" required>
-          <input type="text" placeholder="WhatsApp Number" required>
-          <select required style="width: 70%; padding: 6px; margin-bottom: 6px; border: 1px solid #33ff00; border-radius: 7px; font-size: 1rem;">
-            <option value="">Select Nearby Location (Around 10km)</option>
-            <option value="KPHB">Hitech City</option>
-            <option value="Hitech City">KPHB</option>
-            <option value="Lingampally">Lingampally</option>
-          </select>          
-          <textarea class="address-box" placeholder="Address (4 lines)" rows="4" required></textarea>
-          <label for="startDate" style="font-weight: bold;">Start Date:</label>
-          <input type="date" id="startDate" name="startDate" required style="width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 7px; font-size: 1rem;">
-          <input type="text" placeholder="Landmark" required>
-          <textarea Text="orderDetails" placeholder="Provide details if you have any Fruit allergies or preferences" rows="4" required style="border: 2px solid orange; background-color: #fffaf0;"></textarea>
-        </div>
-        <div style="height: 200px; width: px; background-color: #4CAF50; margin: auto;"></div>
-        <div class="form-right">
-          <h3>Confirm Your Location:</h3>
-          <button type="button" onclick="getUserLocation()" style="margin-bottom: 10px; padding: 10px 20px; background-color: orange; color: white; border: none; border-radius: 7px; cursor: pointer;">📍 Pin My Current Location</button>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5718991921417!2d78.48667177497935!3d17.435927401227155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb977e81c79547%3A0xadb9bdf44bbaf3d2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1711016358823!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <button type="submit">Submit Order</button>
-      </form>
+      <!-- Replace this iframe src with your actual Google Form embed URL -->
+      <iframe id="order-section" class="google-form" src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" allowfullscreen>Loading…</iframe>
     </section>
 
-    <script>
-      function orderNow(saladName) {
-        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
-        document.getElementById('orderDetails').value = saladName + ' - Quantity: ';
-      }
-
-      function getUserLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-          alert("Geolocation is not supported by this browser.");
-        }
-      }
-
-      function showPosition(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-          .then(response => response.json())
-          .then(data => {
-            const address = data.display_name;
-            document.querySelector('.address-box').value = `Pinned Location:\n${address}`;
-          })
-          .catch(err => {
-            document.querySelector('.address-box').value = `Pinned Location:\nLatitude: ${lat}, Longitude: ${lon}`;
-          });
-      }
-
-      function showError(error) {
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            alert("User denied the request for Geolocation.");
-            break;
-          case error.POSITION_UNAVAILABLE:
-            alert("Location information is unavailable.");
-            break;
-          case error.TIMEOUT:
-            alert("The request to get user location timed out.");
-            break;
-          case error.UNKNOWN_ERROR:
-            alert("An unknown error occurred.");
-            break;
-        }
-      }
-    </script>
-  </body>
-  </html>
-
-  <section id="contact">
-        <div style="background-color: rgb(49, 1, 1); padding: 20px; display: flex; justify-content: center; border-radius: 40px; margin: 10px auto; width: fit-content;">
-          <img src="images/Brizo_Branches.png" alt="Brizo Branches" 
-            style="width:810px; cursor: pointer; border-radius: 10px; transition: transform 0.3s ease;">
-        </div>
-        <hr style="border: none; border-top: 2px solid #4CAF50; width: 80%; margin: 30px auto;">
-
+    <section id="contact">
+      <div style="background-color: rgb(49, 1, 1); padding: 20px; display: flex; justify-content: center; border-radius: 40px; margin: 10px auto; width: fit-content;">
+        <img src="images/Brizo_Branches.png" alt="Brizo Branches" style="width:810px; cursor: pointer; border-radius: 10px; transition: transform 0.3s ease;">
+      </div>
+      <hr style="border: none; border-top: 2px solid #4CAF50; width: 80%; margin: 30px auto;">
       <div style="display: flex; gap: 40px; align-items: center; justify-content: center; margin: 20px 0;">
         <div style="text-align: center;">
           <a href="mailto:brizobites@gmail.com">
@@ -230,10 +189,12 @@
           </a>
           <p style="margin-top: 8px; font-weight: bold;">Location</p>
         </div>
-      </div>    
-    </div>
-    <footer>
-      <p>&copy; 2025 BR!ZO. Eat healthy, stay happy!</p>
-    </footer>
-  </body>
-  </html>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 BR!ZO. Eat healthy, stay happy!</p>
+  </footer>
+</body>
+</html>
